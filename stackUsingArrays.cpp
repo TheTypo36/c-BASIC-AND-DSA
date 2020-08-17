@@ -30,6 +30,7 @@ public:
                newArr[i] = arr[i];
                i++;
             }
+            delete [] arr;
             arr=newArr;
             capacity=2*capacity;
         }
