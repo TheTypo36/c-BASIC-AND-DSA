@@ -11,8 +11,6 @@ class Pair{
         this -> y = y;
 
     }
-    T getX(){
-        return x;
     }
     V getY(){
         return y;

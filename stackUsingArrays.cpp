@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+template <typename T>
 class StackUsingArrays
 {
-    int *arr;
+    T *arr;
     int nextIndex;
     int capacity;
 
@@ -11,10 +11,10 @@ public:
     StackUsingArrays()
     {
         this->capacity = 4;
-        arr = new int[capacity];
+        arr = new T[capacity];
         nextIndex = 0;
     }
-    int size()
+    T size()
     {
         return nextIndex;
     }
@@ -22,10 +22,10 @@ public:
     {
         return size() == 0;
     }
-    void push(int data){
+    void push(T data){
         if(nextIndex == capacity){
-            int * newArr = new int[2*capacity];
-            int i=0;
+            T * newArr = new T[2*capacity];
+            T i=0;
             while(i<capacity){
                newArr[i] = arr[i];
                i++;
@@ -37,16 +37,18 @@ public:
         arr[nextIndex] =data;
         nextIndex++;
     }
-    int pop(){
+    T pop(){
         if(this -> isEmpty()){
             cout << "stack is empty!" << endl;
+            return 0;
         }
             nextIndex--;
             return arr[nextIndex];
     }
-    int top(){
+    T top(){
           if(this -> isEmpty()){
             cout << "stack is empty!" << endl;
+            return 0;
         }
            
             return arr[nextIndex - 1];
