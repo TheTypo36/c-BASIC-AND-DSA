@@ -8,9 +8,9 @@ class StackUsingArrays
     int capacity;
 
 public:
-    StackUsingArrays(int totalNumber)
+    StackUsingArrays()
     {
-        this->capacity = totalNumber;
+        this->capacity = 4;
         arr = new int[capacity];
         nextIndex = 0;
     }
@@ -24,8 +24,14 @@ public:
     }
     void push(int data){
         if(nextIndex == capacity){
-            cout << "stack is Full!"<< endl;
-            return;
+            int * newArr = new int[2*capacity];
+            int i=0;
+            while(i<capacity){
+               newArr[i] = arr[i];
+               i++;
+            }
+            arr=newArr;
+            capacity=2*capacity;
         }
         arr[nextIndex] =data;
         nextIndex++;
