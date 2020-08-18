@@ -2,7 +2,7 @@
 using namespace std;
 int countBracketReversals(char input[])
 {
-    int l = strlen(input);
+    int l =strlen(input);
     if (l % 2 != 0)
     {
         return -1;
