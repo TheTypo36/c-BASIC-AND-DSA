@@ -64,6 +64,60 @@ void printLevelWise(TreeNode<int> *root)
         }
     }
 }
+int nodesGreaterThanX(TreeNode<int> *root, int x)
+{
+    /* Don't write main().
+     * Don't read input, it is passed as function argument.
+     * Return output and don't print it.
+     * Taking input and printing output is handled automatically.
+     */
+    if (root == NULL)
+    {
+        return 0;
+    }
+
+    int ans = 0;
+    if (root->data > x)
+    {
+        ans = 1;
+    }
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        ans += nodesGreaterThanX(root->children[i], x);
+    }
+    return ans;
+}
+TreeNode<int> *maxSumNode(TreeNode<int> *root)
+{
+    /* Don't write main().
+     * Don't read input, it is passed as function argument.
+     * Return output and don't print it.
+     * Taking input and printing output is handled automatically.
+     */
+
+    int maxSum = root->data;
+    TreeNode<int> *ans = root;
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        maxSum += root->children[i]->data;
+    }
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        TreeNode<int> *smallAns = maxSumNode(root->children[i]);
+        int smallData = smallAns->data;
+        for (int i = 0; i < smallAns->children.size(); i++)
+        {
+            smallData += smallAns->children[i]->data;
+        }
+        if (maxSum < smallData)
+        {
+            ans = smallAns;
+            maxSum = smallData;
+        }
+    }
+
+    return ans;
+}
 int countNode(TreeNode<int> *root)
 {
     if (root == NULL)
@@ -90,24 +144,71 @@ int sumOfNodes(TreeNode<int> *root)
     }
     return ans;
 }
+int height(TreeNode<int> *root)
+{
+    if (root == NULL)
+    {
+        return NULL;
+    }
+    int ans = 0;
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        ans = max(ans, height(root->children[i]));
+    }
+    return ans + 1;
+}
 TreeNode<int> *maxDataNode(TreeNode<int> *root)
 {
     if (root == NULL)
     {
         return NULL;
     }
-    TreeNode<int>* ans = root;
-    for (int i = 0; i < root -> children.size(); i++)
+    TreeNode<int> *ans = root;
+    for (int i = 0; i < root->children.size(); i++)
     {
-        TreeNode<int>* recurans = maxDataNode(root->children[i]);
-         if(recurans -> data>ans -> data){
-             ans = recurans;
-         }else{
-             ans = ans;
-         }
+        TreeNode<int> *recurans = maxDataNode(root->children[i]);
+        if (recurans->data > ans->data)
+        {
+            ans = recurans;
+        }
+        else
+        {
+            ans = ans;
+        }
     }
     return ans;
-    
+}
+void postOrder(TreeNode<int> *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        postOrder(root->children[i]);
+    }
+    cout << root->data << " ";
+}
+bool containsX(TreeNode<int> *root, int x)
+{
+    /* Don't write main().
+     * Don't read input, it is passed as function argument.
+     * Return output and don't print it.
+     * Taking input and printing output is handled automatically.
+    */
+    if (root->data == x)
+    {
+        return true;
+    }
+    bool smallans = false;
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        smallans = containsX(root->children[i], x);
+        if (smallans)
+            return true;
+    }
+    return smallans;
 }
 TreeNode<int> *takeInputLevelWise()
 {
@@ -133,6 +234,7 @@ TreeNode<int> *takeInputLevelWise()
             f->children.push_back(child);
             pending_Nodes.push(child);
         }
+        delete root;
     }
     return root;
 }
