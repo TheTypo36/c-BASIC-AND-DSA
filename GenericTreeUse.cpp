@@ -87,6 +87,33 @@ int nodesGreaterThanX(TreeNode<int> *root, int x)
     }
     return ans;
 }
+bool isIdentical(TreeNode<int> *root1, TreeNode<int> *root2)
+{
+    /* Don't write main().
+     * Don't read input, it is passed as function argument.
+     * Return output and don't print it.
+     * Taking input and printing output is handled automatically.
+     */
+    if (root1->data != root2->data)
+    {
+        return false;
+    }
+    if (root1->children.size() != root2->children.size())
+    {
+        return false;
+    }
+    bool ans = true;
+    for (int i = 0; i < root1->children.size(); i++)
+    {
+        ans = isIdentical(root1->children[i], root2->children[i]);
+        if (ans == false)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 TreeNode<int> *maxSumNode(TreeNode<int> *root)
 {
     /* Don't write main().
@@ -210,6 +237,29 @@ bool containsX(TreeNode<int> *root, int x)
     }
     return smallans;
 }
+void helper(TreeNode<int> *root, int k)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    root->data = k;
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        helper(root->children[i], k + 1);
+    }
+}
+void replaceWithDepthValue(TreeNode<int> *root)
+{
+    /* Don't write main().
+     * Don't read input, it is passed as function argument.
+     * Change in the input tree itself.
+     * No need to return pr print the output.
+     * Taking input and printing output is handled automatically.
+     */
+    helper(root, 0);
+}
+
 TreeNode<int> *takeInputLevelWise()
 {
     cout << "Enter the root data" << endl;
