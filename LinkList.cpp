@@ -74,6 +74,103 @@ Node<int>* midpoint(Node<int>* head){
 
 return slow;
 }
+// Following is the node structure
+/**************
+class node{
+public:
+    int data;
+    node * next;
+    node(int data){
+        this->data=data;
+        this->next=NULL;
+    }
+};
+    node * even = NULL;
+    if( head -> data % 2 == 0){
+        even -> data = head  -> data;
+        even -> next = NULL;
+        
+    }
+    node * temp = head;
+    
+        while( temp -> next != NULL){
+            if( temp -> next -> data % 2 == 0){
+            	if( even == NULL){
+                    even -> data == temp -> next -> data;
+                    even -> next == NULL;
+                }else{
+                    node * newNode=new node(temp -> next -> data);
+                    even -> next = newNode;
+                }
+                temp = temp -> next -> next;
+            }else{
+            temp = temp -> next;
+                }
+        }
+    if( head -> data % 2==0 ){
+        head = head -> next;
+    }
+    temp -> next = even;
+    return head;
+***************/
+pair<Node<int>*,Node<int>*> helper(Node<int>* head){
+    if(head == NULL){
+        pair<Node<int>*,Node<int>*> ans;
+        ans.first = NULL;
+        ans.second = NULL;
+        return ans;
+    }
+            pair<Node<int>*,Node<int>*> recurans = helper(head -> next);
+        		
+            pair<Node<int>*,Node<int>*> ans;
+
+    if(head -> data%2 != 0){
+        if(recurans.first!=NULL){
+            head -> next =recurans.first;
+            ans.first = head;
+            ans.second = recurans.second;
+        }else{
+            ans.first = head;
+            ans.second = head;
+        }
+    }else{
+        if(recurans.first!=NULL){
+          Node<int>* temp = recurans.first;
+        Node<int>* prev = NULL;
+            while(temp!=NULL&&temp->data%2!=0){
+                prev = temp;
+                temp =temp -> next;
+                
+            }
+            if(temp!=NULL&&prev!=NULL){
+                prev -> next = head;
+                head -> next = temp ;
+                ans.first = recurans.first;
+                ans.second =recurans.second;
+            }
+            else if(temp!=NULL&&prev==NULL){
+                head -> next = recurans.first;
+                ans.first = head;
+                ans.second = recurans.second;
+            }
+                else{
+                recurans.second -> next = head ;
+                ans.first=recurans.first;
+                ans.second = head;
+            }
+        }else{
+            ans.first = head;
+            ans.second = head;
+        }
+        
+    }
+    ans.second->next= NULL;
+    return ans;
+}
+Node<int>* arrange_LinkedList(Node<int>* head)
+{
+   	 return helper(head).first;
+}
 
 Node<int> *deleteIthNode(Node<int> *head, int i)
 {
