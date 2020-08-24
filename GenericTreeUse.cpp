@@ -237,28 +237,25 @@ bool containsX(TreeNode<int> *root, int x)
     }
     return smallans;
 }
-void helper(TreeNode<int> *root, int k)
-{
-    if (root == NULL)
-    {
+void helper(TreeNode<int> * root, int k){
+    if(root == NULL){
         return;
     }
-    root->data = k;
-    for (int i = 0; i < root->children.size(); i++)
-    {
-        helper(root->children[i], k + 1);
+    root -> data = k;
+    for(int i = 0 ; i < root -> children.size(); i++){
+        helper(root -> children[i], k+1);
     }
 }
-void replaceWithDepthValue(TreeNode<int> *root)
-{
+void replaceWithDepthValue(TreeNode<int> *root){    
     /* Don't write main().
      * Don't read input, it is passed as function argument.
      * Change in the input tree itself.
      * No need to return pr print the output.
      * Taking input and printing output is handled automatically.
      */
-    helper(root, 0);
+	helper(root , 0);
 }
+
 
 TreeNode<int> *takeInputLevelWise()
 {
@@ -284,7 +281,7 @@ TreeNode<int> *takeInputLevelWise()
             f->children.push_back(child);
             pending_Nodes.push(child);
         }
-        delete root;
+        
     }
     return root;
 }
@@ -293,6 +290,7 @@ int main()
     TreeNode<int> *root = takeInputLevelWise();
     printLevelWise(root);
     cout << countNode(root) << endl;
+    delete root;
 }
 // 1 3 2 2 6 0 7 0 3 1 8 0 4 1 9 0
 //1 3 2 3 4 2 5 6 1 7 1 8 0 0 0 0

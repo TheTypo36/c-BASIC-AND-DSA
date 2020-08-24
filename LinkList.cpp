@@ -60,6 +60,21 @@ Node<int> *insertAtIth(Node<int> *head, int i, int data)
     }
     return head;
 }
+Node<int>* midpoint(Node<int>* head){
+  Node<int>* slow = head;
+  Node<int>* fast = head -> next;
+
+  while(fast!=NULL){
+      while(fast -> next!=NULL){
+          slow= slow -> next;
+          fast = fast -> next -> next;
+      }
+      break;
+  }
+
+return slow;
+}
+
 Node<int> *deleteIthNode(Node<int> *head, int i)
 {
     Node<int> *temp = head;
@@ -124,4 +139,8 @@ int returnINt(Node<int> *head)
         temp = temp->next;
     }
     return sum / 10;
+}
+int main(){
+    Node<int>* head = takeinput();
+    cout << midpoint(head)->data << endl;
 }
