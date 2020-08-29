@@ -64,6 +64,27 @@ vector<int> removeDuplicates(vector<int> v)
     }
     return ans;
 }
+void printPairSumTo0(int *arr, int size)
+{
+    unordered_map<int, int> freq;
+    for (int i = 0; i < size; i++)
+    {
+        freq[arr[i]]++;
+    }
+    for (int i = 0; i < size; i++)
+    {
+        int p = 0 - arr[i];
+        if(freq[arr[i]]>0&&freq[p]>0){
+            int print = freq[arr[i]]*freq[p];
+            while(print--){
+                cout << p << " " << arr[i]<< endl;
+            }
+        }
+        freq[arr[i]]=0;
+        freq[p]=0;
+
+    }
+}
 int main()
 {
     /*int n;
@@ -80,7 +101,7 @@ int main()
     for (int  i = 0; i < output.size(); i++)
     {
         cout << output[i] << " ";
-    }*/
+    }
     int size;
     cin >> size;
     int *arr = new int[size];
@@ -88,7 +109,7 @@ int main()
     {
         cin >> arr[i];
     }
-    /*
+
     int output = highestFreq(arr,size);
     cout << output << endl;
     */
@@ -100,7 +121,8 @@ int main()
         cin >> arr2[i];
     }
     cout << "****output****" << endl;
-    intersection(arr, arr2, size, n2);
-    delete[] arr;
+    printPairSumTo0(arr2,n2);
+    //intersection(arr, arr2, size, n2);
+    //delete[] arr;
     delete[] arr2;
 }
