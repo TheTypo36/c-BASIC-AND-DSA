@@ -9,11 +9,11 @@ bool subsetSumDp(int* input, int n , int sum){
     //    memset(strg,-1,sizeof(strg));
     for (int i = 0; i < n+1; i++)
     {
-        strg[i][0] =false;
+        strg[i][0] =true;
     }
     for (int i = 1; i < sum+1; i++)
     {
-        strg[0][i] = true;
+        strg[0][i] = false;
     }
     for (int i = 1; i < n+1; i++)
     {
@@ -23,7 +23,7 @@ bool subsetSumDp(int* input, int n , int sum){
                 strg[i][j] = strg[i-1][j];
             }
             else{
-                strg[i][j]= strg[i-1][j-input[i]]||strg[i-1][j]; 
+                strg[i][j]= strg[i-1][j-input[i-1]]||strg[i-1][j]; 
             }
         }
 
@@ -93,8 +93,13 @@ int main()
     for (int i = 0; i < n+1; i++)
     {
         strg[i] = new int[Sum+1];
+        for (int j = 0; j < Sum+1; j++)
+        {
+            strg[i][j] = -1;
+        }
+        
     }
-    memset(strg,-1,sizeof(strg));
+
     cout << "DynamicProgramming Appraoch: " << subsetSumDp(input,n,Sum) << endl;
     cout <<"Memoization Appraoch: " << subsetSumMemoization(input,n,Sum,strg) << endl;
     cout << "Recursive Approach: " << subsetSum(input, n, Sum) << endl;
