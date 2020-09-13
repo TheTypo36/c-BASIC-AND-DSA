@@ -2,7 +2,7 @@
 using namespace std;
 void helper(int n, int sum , string s)
 {
-    if(n >){
+    if(n >0){
         return ;
     }
     if(n == sum){
