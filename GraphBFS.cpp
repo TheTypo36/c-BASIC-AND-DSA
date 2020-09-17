@@ -1,13 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void print(int **edges, int n, int sv)
+void print(int **edges, int n, int sv,bool* visited)
 {
-    bool * visited = new bool[n];
-   for (int i = 0; i < n; i++)
-   {
-       visited[i] = false;
-   }
+    
     queue<int> pending;
     visited[sv] = true;
     pending.push(sv);
@@ -29,7 +25,20 @@ void print(int **edges, int n, int sv)
             }
         }
     }
-    delete [] visited;
+}
+void BFS(int** edges,int n){
+    bool * visited = new bool[n];
+   for (int i = 0; i < n; i++)
+   {
+       visited[i] = false;
+   }
+   for (int i = 0; i < n; i++)
+   {
+       if(!visited[i])
+       print(edges,n,i,visited);
+   }
+   delete [] visited;
+   
 }
 int main()
 {
@@ -55,16 +64,26 @@ int main()
         edges[s][f] = 1;
    }
    
-   print(edges,n,0);
+   BFS(edges,n);
    for (int i = 0; i < n; i++)
    {
        delete [] edges[i];
    }
    delete [] edges;
-   //delete[] visited;
+
    
 
    
 
     return 0;
 }
+/*
+7
+5
+0 2
+0 3
+2 3
+1 4
+5 6
+
+*/
