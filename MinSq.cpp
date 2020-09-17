@@ -48,4 +48,3 @@ int main()
   cout << findMaxSquareWithAllZeros(arr,n,m) << endl;
   delete arr;
   return 0;
-}
